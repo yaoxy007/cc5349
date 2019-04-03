@@ -21,8 +21,8 @@ def combiner():
         nums_of_category.setdefault(category,set()).add(vid)
         ids_in_country.setdefault(vid,set()).add(country)
     
-    for ids in ids_in_country:
-        for cat,idset in nums_of_category.items():
+    for cat,idset in nums_of_category.items():
+        for ids in ids_in_country:
             if ids in list(idset):
                 print("{},{},{}".format(cat,ids,list(ids_in_country[ids])))
 

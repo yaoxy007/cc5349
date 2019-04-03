@@ -20,20 +20,22 @@ def reducer():
     c={}
     for category,ids,countries in data:
         country=countries.strip().split(",")
-        country=set(country)
+        # country=set(country)
         if not current_category:
             current_category=category
         elif category!=current_category:
-            total_country = sum(map(lambda x:len(x),c.values()))
-            total_ids = len(c)
-            print("{},{}".format(category,total_country/total_ids))
-            c.clear()
+            # total_country = sum(map(lambda x:len(x),c.values()))
+            # total_ids = len(c)
+            print("{},{}".format(category,country_count/id_count))
+            # c.clear()
             current_category=category
-        c[ids] = c.get(ids,set()) | country
+        # c[ids] = c.get(ids,set()) | country
+        id_count +=1
+        country_count+=len(country)
     
-    total_country = sum(map(lambda x:len(x),c.values()))
-    total_ids = len(c)
-    print("{},{}".format(category,total_country/total_ids))
+    # total_country = sum(map(lambda x:len(x),c.values()))
+    # total_ids = len(c)
+    print("{},{}".format(category,country_count/id_count))
 
         # if current_category != category:
         #     if current_category!="":
