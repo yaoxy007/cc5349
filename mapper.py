@@ -13,7 +13,11 @@ output format: category,video_id,country
 
 def mapper():
     
-    for line in sys.stdin:
+    for index,line in enumerate(sys.stdin):
+        
+        if index ==0:
+            continue
+            
         line = line.strip()
         parts = line.split(",")
         
