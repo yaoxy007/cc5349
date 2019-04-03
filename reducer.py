@@ -19,7 +19,7 @@ def reducer():
         current_category = category
         country_count += len(countries)
         id_count += 1
-        output += "{}\,{}".fotmat(current_category,country_count/id_count)
+        output += "{}\,{}".format(current_category,country_count/id_count)
         if current_category!=category:
             country_count = 0
             id_count = 0
