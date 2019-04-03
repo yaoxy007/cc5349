@@ -12,6 +12,7 @@ def read_combiner_output(output):
         yield line.strip().split(",",2)
 
 def reducer():
+    data = read_combiner_output(sys.stdin)
     current_category = ""
     c={}
     for category,ids,countries in data:
