@@ -15,19 +15,20 @@ def reducer():
     data = read_combiner_output(sys.stdin)
     current_category = ""
     c={}
+  
     for category,ids,countries in data:
         country=countries.strip().split(",")
         country=set(country)
+        
         if not current_category:
             current_category=category
         elif category!=current_category:
             total_country = sum(map(lambda x:len(x),c.values()))
             total_ids = len(c)
             print("{},{}".format(category,total_country/total_ids))
-            # c.clear()
+            c.clear()
             current_category=category
         c[ids] = c.get(ids,set()) | country
-    
     
     total_country = sum(map(lambda x:len(x),c.values()))
     total_ids = len(c)
