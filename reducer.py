@@ -20,6 +20,7 @@ def reducer():
     c={}
     for category,ids,countries in data:
         country=countries.strip().split(",")
+        country=set(country)
         if not current_category:
             current_category=category
         elif category!=current_category:
