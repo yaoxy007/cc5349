@@ -21,7 +21,7 @@ def combiner():
         nums_of_category.setdefault(category,set()).add(vid)
         ids_of_category=nums_of_category.values()
         for id_sets in ids_of_category:
-            for i in sets:
+            for i in id_sets:
                 ids_in_country.setdefault(i,set()).add(country)
     
     for cat in nums_of_category:
