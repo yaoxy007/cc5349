@@ -8,7 +8,7 @@ output format: category, video ids in that category, countries in that category
 """
 
 def read_map_output(map_output):
-    for line in map_output:
+    forz line in map_output:
         yield line.strip().split(",")
 
 def combiner():
@@ -20,13 +20,14 @@ def combiner():
     for category, vid, country in data:
         nums_of_category.setdefault(category,set()).add(vid)
         ids_of_category=nums_of_category.values()
-        for ids in ids_of_category:
-            ids_in_country.setdefault(ids,set()).add(country)
+        for id_sets in ids_of_category:
+            for i in sets:
+                ids_in_country.setdefault(i,set()).add(country)
     
     for cat in nums_of_category:
         for ids in ids_in_country:
             if(ids in nums_of_category[cat]):
-                print("{},{},{}".format(cat,ids,ids_in_country[ids]))
+                print("{},{},{}".format(cat,ids,list(ids_in_country[ids])))
     
 
 
