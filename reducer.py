@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys
 
 """
@@ -7,7 +9,7 @@ output format: category, average number
 
 def read_combiner_output(output):
     for line in output:
-        yield line.strip().split("\,")
+        yield line.strip().split(",")
 
 def reducer():
     data = read_combiner_output(sys.stdin)

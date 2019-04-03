@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import sys
 
 """
@@ -7,7 +9,7 @@ output format: category, video ids in that category, countries in that category
 
 def read_map_output(map_output):
     for line in map_output:
-        yield line.strip().split("\,")
+        yield line.strip().split(",")
 
 def combiner():
     data = read_map_output(sys.stdin)
