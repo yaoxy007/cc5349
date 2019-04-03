@@ -18,12 +18,13 @@ def reducer():
     country_count = 0
     output = ""
     for category,ids,countries in data:
+        country=countries.strip().split(",")
         if current_category != category:
             if current_category!="":
                 output = "{},{}".format(current_category,country_count/id_count)
                 print(output.strip())
             current_category=category
-        country_count += len(countries)
+        country_count += len(country)
         id_count += 1
 
     if current_category!="":
