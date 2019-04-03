@@ -8,7 +8,7 @@ output format: category, video ids in that category, countries in that category
 """
 
 def read_map_output(map_output):
-    forz line in map_output:
+    for line in map_output:
         yield line.strip().split(",")
 
 def combiner():
