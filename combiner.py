@@ -25,8 +25,8 @@ def combiner():
     for cat in nums_of_category:
         for ids in ids_in_country:
             if(ids in nums_of_category[cat]):
-                output += "{}\,{}\,{}".format(cat,ids,ids_in_country[ids])
-    print(output.strip())
+                print("{},{},{}".format(cat,ids,ids_in_country[ids]))
+
 
 
 if __name__ == "__main__":

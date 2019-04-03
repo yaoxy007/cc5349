@@ -4,7 +4,7 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-hadoop jar /usr/lib/hadoop/hadoop-streaming-2.8.5-amzn-1.jar \
+hadoop jar /usr/lib/hadoop/hadoop-streaming-2.8.5-amzn-2.jar \
 -D mapreduce.job.reduces=3 \
 -D mapreduce.job.name='Tag owner inverted list' \
 -file mapper.py \
