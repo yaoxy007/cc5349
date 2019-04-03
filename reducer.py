@@ -12,33 +12,25 @@ def read_combiner_output(output):
         yield line.strip().split(",",2)
 
 def reducer():
-    data = read_combiner_output(sys.stdin)
+    current_category = ""
+    c={}
     for category,ids,countries in data:
-        print(category+" "+ids+" "+countries)
+        country=countries.strip().split(",")
+        country=set(country)
+        if not current_category:
+            current_category=category
+        elif category!=current_category:
+            total_country = sum(map(lambda x:len(x),c.values()))
+            total_ids = len(c)
+            print("{},{}".format(category,total_country/total_ids))
+            # c.clear()
+            current_category=category
+        c[ids] = c.get(ids,set()) | country
     
-    # current_category = ""
-    # id_count = 0
-    # country_count = 0
-    # output = ""
-    # c={}
-    # for category,ids,countries in data:
-    #     country=countries.strip().split(",")
-    #     # country=set(country)
-    #     if not current_category:
-    #         current_category=category
-    #     elif category!=current_category:
-    #         # total_country = sum(map(lambda x:len(x),c.values()))
-    #         # total_ids = len(c)
-    #         print("{},{}".format(category,country_count/id_count))
-    #         # c.clear()
-    #         current_category=category
-    #     # c[ids] = c.get(ids,set()) | country
-    #     id_count +=1
-    #     country_count+=len(country)
     
-    # # total_country = sum(map(lambda x:len(x),c.values()))
-    # # total_ids = len(c)
-    # print("{},{}".format(category,country_count/id_count))
+    total_country = sum(map(lambda x:len(x),c.values()))
+    total_ids = len(c)
+    print("{},{}".format(category,total_country/total_ids))
 
     
 if __name__ == "__main__":
