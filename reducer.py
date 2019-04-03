@@ -27,6 +27,8 @@ def reducer():
             total_country = sum(map(lambda x:len(x),c.values()))
             total_ids = len(c)
             print("{},{}".format(category,total_country/total_ids))
+            c.clear()
+            current_category=category
         c[ids] = c.get(ids,set()) | country
     
     total_country = sum(map(lambda x:len(x),c.values()))
