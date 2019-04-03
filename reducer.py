@@ -27,9 +27,8 @@ def reducer():
         country_count += len(country)
         id_count += 1
 
-    if current_category!="":
-        output = "{},{}".format(current_category,country_count/id_count)
-        print(output.strip())
+    # output = "{},{}".format(current_category,country_count/id_count)
+    # print(output.strip())
     
 if __name__ == "__main__":
     reducer()
