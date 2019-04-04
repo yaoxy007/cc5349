@@ -23,7 +23,7 @@ def reducer():
             if current_category!="":
                 total_country = sum(map(lambda x:len(x),c.values()))
                 total_ids = len(c)
-                print("{key}\t{val}".format(key=category,val=round(total_country/total_ids,2)))
+                print("{key}, {val}".format(key=category,val=round(total_country/total_ids,2)))
             current_category=category
             c.clear()
         ids = ids_and_countries.strip().split(":")[0]
