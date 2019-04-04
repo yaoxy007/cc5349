@@ -3,27 +3,29 @@
 import sys
 
 """
-input format: category, video_id, country
-output format: category, video ids in that category, countries in that category
+input format: key = {category}, val={video_id, country}
+output format: key={category}, val={video ids in that category, [countries in that category]}
 """
 
 def read_map_output(map_output):
     for line in map_output:
-        yield line.strip().split(",")
+        yield line.strip().split(",",1)
 
 def combiner():
     data = read_map_output(sys.stdin)
     nums_of_category = {}
     ids_in_country = {}
 
-    for category, vid, country in data:
+    for category, vid_and_country in data:
+        vid = vid_and_country.split(",").strip()[0]
+        country=vid_and_country.split(",").strip()[1]
         nums_of_category.setdefault(category,set()).add(vid)
         ids_in_country.setdefault(vid,set()).add(country)
     
     for cat,idset in nums_of_category.items():
         for ids,countries in ids_in_country.items():
             if ids in list(idset):
-                print("{},{},{}".format(cat,ids,list(countries)))
+                print("{key},{val}".format(key=cat,val="%s,%s" % (ids,list(countries))))
             else:
                 continue
     

@@ -3,8 +3,8 @@
 import sys
 
 """
-input format: category, video ids in that category, countries in that category
-output format: category, average number
+input format:  key={category}, val={video ids in that category, [countries in that category]}
+output format: key={category}, val={average number}
 """
 
 def read_combiner_output(output):
