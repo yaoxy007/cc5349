@@ -13,13 +13,14 @@ def read_combiner_output(output):
 
 def reducer():
     data = read_combiner_output(sys.stdin)
-    print(data)
+    for category,ids in data:
+        print(category+" "+ids)
     # current_category = ""
     # c={}
 
     # for category,ids_and_countries in data:
     #     ids = ids_and_countries.strip().split(":")[0]
-    #     country=ids_and_countries.strip().split(":")[1]
+    #     country=ids_and_countries.strip().split(":")[1].strip("[").strip("]")
     #     country_list = country.split(",")
     #     country=set(country_list)
         
