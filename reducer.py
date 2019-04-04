@@ -21,33 +21,33 @@ def reducer():
         country=ids_and_countries.strip().split(":")[1].strip("[").strip("]")
         country_list = country.split(",")
         country=set(country_list)
-        if current_category == "":
-            current_category = category
-        elif current_category != category:
+        # if current_category == "":
+        #     current_category = category
+        # elif current_category != category:
+        #         total_country = sum(map(lambda x:len(x),c.values()))
+        #         total_ids = len(c)
+        #         print("{key}, {val}".format(key=current_category,val=round(total_country/total_ids,2)))
+        #         c.clear()
+        #         current_category=category
+        # c[ids] = c.get(ids,set()) | country
+        
+        if(current_category == category):
+            c[ids] = c.get(ids,set()) | country
+
+        if current_category!=category:
+            if current_category=="":
+                c[ids] = c.get(ids,set()) | country
+            if current_category!="":
                 total_country = sum(map(lambda x:len(x),c.values()))
                 total_ids = len(c)
                 print("{key}, {val}".format(key=current_category,val=round(total_country/total_ids,2)))
-                c.clear()
-                current_category=category
-        c[ids] = c.get(ids,set()) | country
-        
-        # if(current_category == category):
-        #     c[ids] = c.get(ids,set()) | country
+            current_category=category
+            c.clear()
 
-        # if current_category!=category:
-        #     if current_category=="":
-        #         c[ids] = c.get(ids,set()) | country
-        #     if current_category!="":
-        #         total_country = sum(map(lambda x:len(x),c.values()))
-        #         total_ids = len(c)
-        #         print("{key}, {val}".format(key=category,val=round(total_country/total_ids,2)))
-        #     current_category=category
-        #     c.clear()
-
-    # if current_category!="":
-    total_country = sum(map(lambda x:len(x),c.values()))
-    total_ids = len(c)
-    print("{key}\t{val}".format(key=current_category,val=round(total_country/total_ids,2)))
+    if current_category!="":
+        total_country = sum(map(lambda x:len(x),c.values()))
+        total_ids = len(c)
+        print("{key}\t{val}".format(key=current_category,val=round(total_country/total_ids,2)))
 
 # import sys
 
