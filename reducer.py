@@ -9,7 +9,7 @@ output format: key={category}, val={average number}
 
 def read_combiner_output(output):
     for line in output:
-        yield line.strip().split("\t")
+        yield line.strip().split("\\t")
 
 def reducer():
     data = read_combiner_output(sys.stdin)

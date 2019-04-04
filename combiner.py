@@ -9,7 +9,7 @@ output format: key={category}, val={video ids in that category, [countries in th
 
 def read_map_output(map_output):
     for line in map_output:
-        yield line.strip().split("\t")
+        yield line.strip().split("\\t")
 
 def combiner():
     data = read_map_output(sys.stdin)
@@ -25,7 +25,7 @@ def combiner():
     for cat,idset in nums_of_category.items():
         for ids,countries in ids_in_country.items():
             if ids in list(idset):
-                print("{key}\t{val}".format(key=cat,val="%s,%s" % (ids,list(countries))))
+                print("{key}\\t{val}".format(key=cat,val="%s,%s" % (ids,list(countries))))
             else:
                 continue
     
