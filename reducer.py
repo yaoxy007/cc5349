@@ -17,9 +17,9 @@ def reducer():
     current_category = ""
     c={}
     for category,ids_and_countries in data:
-        print(category+" "+ids_and_countries)
-        if(category!= "Autos & Vehicles"):
-            break
+        while(category =="Autos & Vehicles"):
+            print(category+" "+ids_and_countries)
+
     # for category,ids_and_countries in data:
     #     ids = ids_and_countries.strip().split(":")[0]
     #     country=ids_and_countries.strip().split(":")[1].strip("[").strip("]")
