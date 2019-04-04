@@ -17,7 +17,7 @@ def reducer():
     current_category = ""
     c={}
     for category,ids_and_countries in data:
-        while(category =="Autos & Vehicles"):
+        if(category =="Autos & Vehicles"):
             print(category+" "+ids_and_countries)
 
     # for category,ids_and_countries in data:
