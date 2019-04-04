@@ -25,7 +25,7 @@ def combiner():
     for cat,idset in nums_of_category.items():
         for ids,countries in ids_in_country.items():
             if ids in list(idset):
-                print("{key}\t{val}".format(key=cat,val="%s:%s" % (ids,list(countries))))
+                print("{key}\t{val}".format(key=cat,val="%s:%s" % (ids,list(countries.strip()))))
             else:
                 continue
     
