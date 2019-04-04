@@ -59,7 +59,7 @@ def read_combiner_output(line):
     country=parts[1].strip("[").strip("]")
     country_list = country.split(",")
     country=set(country_list)
-    return category, video_id, country_set
+    return category, video_id, country
 
 
 def output(category, country_dict):
