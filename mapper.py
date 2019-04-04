@@ -28,7 +28,7 @@ def mapper():
         category = parts[3].strip()
         country = parts[11].strip()
 
-        print("{key},{val}".format(key=category,val="%s,%s" % (video_id,country)))
+        print("{key}\t{val}".format(key=category,val="%s,%s" % (video_id,country)))
 
 if __name__ == "__main__":
     mapper()

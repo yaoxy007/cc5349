@@ -9,15 +9,16 @@ output format: key={category}, val={average number}
 
 def read_combiner_output(output):
     for line in output:
-        yield line.strip().split(",",2)
+        yield line.strip().split("\t")
 
 def reducer():
     data = read_combiner_output(sys.stdin)
     current_category = ""
     c={}
   
-    for category,ids,countries in data:
-        country=countries.strip().split(",")
+    for category,ids_and_countries in data:
+        ids = ids_and_countries.strip().split(",",1)[0]
+        country=ids_and_countries.strip().split(",",1)[1]
         country=set(country)
         
         if not current_category:
