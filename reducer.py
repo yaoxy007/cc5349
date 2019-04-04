@@ -20,25 +20,27 @@ def reducer():
     for category,ids_and_countries in data:
         ids = ids_and_countries.strip().split(":")[0]
         country=ids_and_countries.strip().split(":")[1].strip("[").strip("]")
-        country_list = country.split(",")
-        country=set(country_list)
+        print(ids+" "+country)
         
-        if not current_category:
-            current_category=category
-        elif category!=current_category:
-            total_country = sum(map(lambda x:len(x),c.values()))
-            total_ids = len(c)
+        # country_list = country.split(",")
+        # country=set(country_list)
+        
+    #     if not current_category:
+    #         current_category=category
+    #     elif category!=current_category:
+    #         total_country = sum(map(lambda x:len(x),c.values()))
+    #         total_ids = len(c)
    
-            print("{key},{val}".format(key=category,val="%.2f" % total_country/total_ids))
-            c.clear()
-            current_category=category
-            total_country=0
-            total_ids=0
-        c[ids] = c.get(ids,set()) | country
+    #         print("{key},{val}".format(key=category,val="%.2f" % total_country/total_ids))
+    #         c.clear()
+    #         current_category=category
+    #         total_country=0
+    #         total_ids=0
+    #     c[ids] = c.get(ids,set()) | country
 
-    total_country = sum(map(lambda x:len(x),c.values()))
-    total_ids = len(c)
-    print("{key},{val}".format(key=category,val="%.2f" % total_country/total_ids))
+    # total_country = sum(map(lambda x:len(x),c.values()))
+    # total_ids = len(c)
+    # print("{key},{val}".format(key=category,val="%.2f" % total_country/total_ids))
 
     
 if __name__ == "__main__":
