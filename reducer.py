@@ -25,11 +25,15 @@ def reducer():
         if not current_category:
             current_category=category
         elif category!=current_category:
-            total_country = sum(map(lambda x:len(x),c.values()))
-            total_ids = len(c)
+            # total_country = sum(map(lambda x:len(x),c.values()))
+            # total_ids = len(c)
+            # total_country += len(country)
+            # total_ids += 1
             print("{key},{val}".format(key=category,val="%.2f" % total_country/total_ids))
             c.clear()
             current_category=category
+            total_country=0
+            total_ids=0
         c[ids] = c.get(ids,set()) | country
     
     total_country += len(country)
