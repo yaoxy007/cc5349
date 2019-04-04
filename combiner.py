@@ -17,15 +17,15 @@ def combiner():
     ids_in_country = {}
 
     for category, vid_and_country in data:
-        vid = vid_and_country.split(",")[0]
-        country=vid_and_country.split(",")[1]
+        vid = vid_and_country.split(",")[0].strip()
+        country=vid_and_country.split(",")[1].strip()
         nums_of_category.setdefault(category,set()).add(vid)
         ids_in_country.setdefault(vid,set()).add(country)
     
     for cat,idset in nums_of_category.items():
         for ids,countries in ids_in_country.items():
             if ids in list(idset):
-                print("{key}\t{val}".format(key=cat,val="%s:%s" % (ids,list(countries.strip()))))
+                print("{key}\t{val}".format(key=cat,val="%s:%s" % (ids,list(countries)))
             else:
                 continue
     
