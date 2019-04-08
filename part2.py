@@ -1,12 +1,8 @@
-import findspark
-findspark.init()
+#import findspark
+#findspark.init()
 import sys
 from pyspark import SparkContext
-
-sc = SparkContext(appName="Top Dislike Growth")
-output_path = "topDislikes"
-
-videos = sc.textFile("AllVideos_short.csv")
+import argparse
 
 def key_and_country(line):
     line = line.strip()
@@ -47,14 +43,27 @@ def order_items(line):
     value = str(rate)+", "+category+", "+country
     return key, value
 
-header = videos.first()
-videos=videos.filter(lambda line:line!=header)
 
-vv=videos.map(key_and_country)
-rdd=vv.groupByKey().mapValues(get_growth_rate)
-aggregated_result = rdd.sortBy(lambda a:a[1],0)
-result = aggregated_result.map(order_items)
-final = sc.parallelize(result.take(10))
-final.repartition(1).saveAsTextFile("Output")
-sc.stop()
+if __name__ == "__main__":
+    sc = SparkContext(appName="Top Dislike Growth")
+
+    parser  =  argparse.ArgumentParser()
+    parser.add_argument("--input",help="input path", default ='~/')
+    parser.add_argument("--output",help="output path",default = '~/')
+    args=parser.parse_args()
+    input_path=args.input
+    output_path=args.output
+
+    videos = sc.textFile(input_path+"AllVideos_short.csv")
+
+    header = videos.first()
+    videos=videos.filter(lambda line:line!=header)
+
+    vv=videos.map(key_and_country)
+    rdd=vv.groupByKey().mapValues(get_growth_rate)
+    aggregated_result = rdd.sortBy(lambda a:a[1],0)
+    result = aggregated_result.map(order_items)
+    final = sc.parallelize(result.take(10))
+    final.repartition(1).saveAsTextFile(output_path+"outpput_part2/")
+    sc.stop()
 
