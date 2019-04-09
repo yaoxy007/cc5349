@@ -1,8 +1,8 @@
-#import findspark
-#findspark.init()
+
 import sys
 from pyspark import SparkContext
 import argparse
+from datetime import datetime
 
 def key_and_country(line):
     line = line.strip()
@@ -17,18 +17,40 @@ def key_and_country(line):
     value = trending_date+":"+likes+":"+dislikes
     return key,value
 
-def get_growth_rate(input):
-    line = [i for i in input]
-    diff=[0,0]
-    if len(line)>1:
-        for i in range(2):
-            like = line[i].split(":")[1]
-            dislike = line[i].split(":")[2]
-            diff[i] = int(like) - int(dislike)
-        growth_rate = diff[0]-diff[1]
-        return growth_rate
-    else:
+def SeqOp(diffpair,inputpair):
+    date1 = diffpair[0][0]
+    diff1 = diffpair[0][1]
+    date2 = diffpair[1][0]
+    diff2 = diffpair[1][1]
+    
+    inputs = inputpair.split(":")
+    dates = datetime.strptime(inputs[0],"%y.%d.%m")
+    like = int(inputs[1])
+    dislike = int(inputs[2])
+    
+    if(dates < date1): 
+        date2 = date1
+        diff2 = diff1
+        date1 = dates
+        diff1 = dislike - like
+    elif(dates < date2):
+        date2 = dates
+        diff2 = dislike - like
+    return [[date1,diff1],[date2,diff2]]
+
+def CombOp(diffpair1, diffpair2):
+    return diffpair1
+    
+MAX_DATE = datetime(9999,1,1)
+def remap(diffpair):
+    date1 = diffpair[0][0]
+    diff1 = diffpair[0][1]
+    date2 = diffpair[1][0]
+    diff2 = diffpair[1][1]
+    if(date1==MAX_DATE or date2==MAX_DATE):
         return 0
+    else:
+        return diff2-diff1
 
 def order_items(line):
     
@@ -59,11 +81,12 @@ if __name__ == "__main__":
     header = videos.first()
     videos=videos.filter(lambda line:line!=header)
 
-    vv=videos.map(key_and_country)
-    rdd=vv.groupByKey().mapValues(get_growth_rate)
-    aggregated_result = rdd.sortBy(lambda a:a[1],0)
+    first_mapped_rdd=videos.map(key_and_country)
+    aggregated = first_mapped_rdd.aggregateByKey([[MAX_DATE,0],[MAX_DATE,0]],SeqOp,CombOp,1)
+
+    aggregated_result = aggregated.mapValues(remap).sortBy(lambda a:a[1],0)
     result = aggregated_result.map(order_items)
     final = sc.parallelize(result.take(10))
-    final.repartition(1).saveAsTextFile(output_path+"outpput_part2/")
+    final.repartition(1).saveAsTextFile(output_path+"output_part2/")
     sc.stop()
 
